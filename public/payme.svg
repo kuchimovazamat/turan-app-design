@@ -1,0 +1,6 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="64" fill="white"/>
+  <text x="80" y="220" font-family="Arial, Helvetica, sans-serif" font-size="140" font-weight="700" fill="#111111">pay</text>
+  <rect x="80" y="250" width="300" height="150" rx="28" fill="#27D9EA"/>
+  <text x="120" y="360" font-family="Arial, Helvetica, sans-serif" font-size="140" font-weight="700" fill="#111111">me</text>
+</svg>
