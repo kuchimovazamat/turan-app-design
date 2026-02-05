@@ -200,8 +200,7 @@
   /* Bottom Navigation */
   .bottom-nav {
     @apply bg-card border-t border-border;
-    @apply flex items-center justify-around;
-    @apply flex-shrink-0;
+    @apply flex-shrink-0 relative;
     height: var(--nav-height);
     padding-bottom: var(--safe-area-bottom);
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);

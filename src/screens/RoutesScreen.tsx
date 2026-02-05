@@ -179,36 +179,40 @@ const RoutesScreen = () => {
   return (
     <MobileShell>
       <div className="safe-area-top">
-        <ScreenHeader title="Buyurtma berish" onBack={() => navigate("/")} />
+        <div className="flex justify-center pt-6 pb-2">
+          <ScreenHeader title="Buyurtma berish" onBack={() => navigate("/")} />
+        </div>
 
         {/* Tab Bar */}
-        <div className="flex gap-4 px-4 py-4 border-b border-border">
-          <button
-            onClick={() => {
-              setActiveTab("servis");
-              setStep("services");
-            }}
-            className={`pb-2 font-semibold transition-colors ${
-              activeTab === "servis"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground"
-            }`}
-          >
-            Servis
-          </button>
-          <button
-            onClick={() => {
-              setActiveTab("xarita");
-              setStep("route");
-            }}
-            className={`pb-2 font-semibold transition-colors ${
-              activeTab === "xarita"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground"
-            }`}
-          >
-            Xarita
-          </button>
+        <div className="px-4 py-4">
+          <div className="inline-flex gap-2 bg-muted p-1 rounded-lg w-full">
+            <button
+              onClick={() => {
+                setActiveTab("servis");
+                setStep("services");
+              }}
+              className={`flex-1 py-2.5 px-4 rounded-md font-semibold transition-all duration-200 ${
+                activeTab === "servis"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Servis
+            </button>
+            <button
+              onClick={() => {
+                setActiveTab("xarita");
+                setStep("route");
+              }}
+              className={`flex-1 py-2.5 px-4 rounded-md font-semibold transition-all duration-200 ${
+                activeTab === "xarita"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Xarita
+            </button>
+          </div>
         </div>
 
         {/* Services Tab */}

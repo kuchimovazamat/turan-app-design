@@ -1,7 +1,8 @@
-import { Eye, Download, Clock, CheckCircle, AlertCircle, MapPin } from "lucide-react";
+import { Eye, Download, Clock, CheckCircle, AlertCircle, MapPin, Bell } from "lucide-react";
 import MobileShell from "@/components/layout/MobileShell";
-import ScreenHeader from "@/components/layout/ScreenHeader";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import logo from "@/assets/logo.jpg";
 
 interface Order {
   id: string;
@@ -88,6 +89,7 @@ const mockOrders: Order[] = [
 ];
 
 const OrdersScreen = () => {
+  const navigate = useNavigate();
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
   const [viewingDocument, setViewingDocument] = useState<string | null>(null);
 
@@ -139,7 +141,27 @@ const OrdersScreen = () => {
   return (
     <MobileShell>
       <div className="safe-area-top">
-        <ScreenHeader title="Zakazlar" />
+        {/* Header */}
+        <header className="px-4 pt-4 pb-2 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img 
+              src={logo} 
+              alt="Turon Gumruk" 
+              className="w-12 h-12 rounded-xl object-cover"
+            />
+            <div>
+              <p className="text-muted-foreground text-sm">Zakazlar</p>
+              <h1 className="text-lg font-bold">Alisher Karimov</h1>
+            </div>
+          </div>
+          <button 
+            onClick={() => navigate("/notifications")}
+            className="relative w-11 h-11 flex items-center justify-center rounded-xl bg-card shadow-card"
+          >
+            <Bell size={22} className="text-foreground" />
+            <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-accent rounded-full border-2 border-card" />
+          </button>
+        </header>
 
         <div className="px-4 py-3 space-y-3 pb-20">
           {mockOrders.map((order) => (

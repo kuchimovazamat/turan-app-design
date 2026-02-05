@@ -16,7 +16,9 @@ import {
   ScanLine,
   Wallet,
   Plus,
+  X,
 } from "lucide-react";
+import { useState } from "react";
 import MobileShell from "@/components/layout/MobileShell";
 import logo from "@/assets/logo.jpg";
 import { useNavigate } from "react-router-dom";
@@ -73,6 +75,23 @@ const settingsItems = [
 
 const ProfileScreen = () => {
   const navigate = useNavigate();
+  const [walletBalance, setWalletBalance] = useState(500);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
+
+  const handlePayment = (paymentType: string) => {
+    setSelectedPayment(paymentType);
+  };
+
+  const handleConfirmPayment = () => {
+    // Add 500 TG to wallet
+    setWalletBalance(prev => prev + 500);
+    // Close modal after a short delay
+    setTimeout(() => {
+      setShowPaymentModal(false);
+      setSelectedPayment(null);
+    }, 500);
+  };
 
   return (
     <MobileShell>
@@ -130,9 +149,12 @@ const ProfileScreen = () => {
                 Turan Gumruk
               </span>
             </div>
-            <p className="text-4xl font-bold mb-2">4,600,000</p>
+            <p className="text-4xl font-bold mb-2">{walletBalance.toLocaleString()}</p>
             <p className="text-sm opacity-80 mb-4">so'm</p>
-            <button className="w-full flex items-center justify-center gap-2 bg-primary-foreground/20 hover:bg-primary-foreground/30 py-2.5 rounded-xl font-semibold transition-colors">
+            <button 
+              onClick={() => setShowPaymentModal(true)}
+              className="w-full flex items-center justify-center gap-2 bg-primary-foreground/20 hover:bg-primary-foreground/30 py-2.5 rounded-xl font-semibold transition-colors"
+            >
               <Plus size={18} />
               To'ldirish
             </button>
@@ -225,6 +247,83 @@ const ProfileScreen = () => {
           <p className="text-sm text-muted-foreground">Turon Gumruk v1.0.0</p>
         </div>
       </div>
+
+      {/* Payment Modal */}
+      {showPaymentModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-in fade-in">
+          <div className="bg-card rounded-3xl p-6 shadow-2xl animate-in scale-in-95" style={{ width: '364px', height: '364px' }}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold">To'lov usuli</h3>
+              <button 
+                onClick={() => {
+                  setShowPaymentModal(false);
+                  setSelectedPayment(null);
+                }}
+                className="p-1 hover:bg-secondary rounded-lg transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-2 overflow-y-auto" style={{ height: 'calc(364px - 160px)' }}>
+              {/* Payme Option */}
+              <button
+                onClick={() => handlePayment('payme')}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-colors border-2 ${
+                  selectedPayment === 'payme'
+                    ? 'bg-blue-100 border-blue-500'
+                    : 'bg-blue-50 hover:bg-blue-100 border-blue-200'
+                }`}
+              >
+                <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center text-white font-bold">
+                  P
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="font-bold text-sm">Payme</p>
+                  <p className="text-xs text-muted-foreground">To'lov tizimi</p>
+                </div>
+                {selectedPayment === 'payme' && (
+                  <CheckCircle2 size={20} className="text-blue-500" />
+                )}
+              </button>
+
+              {/* Click Option */}
+              <button
+                onClick={() => handlePayment('click')}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl transition-colors border-2 ${
+                  selectedPayment === 'click'
+                    ? 'bg-purple-100 border-purple-500'
+                    : 'bg-purple-50 hover:bg-purple-100 border-purple-200'
+                }`}
+              >
+                <div className="w-10 h-10 rounded-lg bg-purple-500 flex items-center justify-center text-white font-bold">
+                  C
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="font-bold text-sm">Click</p>
+                  <p className="text-xs text-muted-foreground">O'zbekiston</p>
+                </div>
+                {selectedPayment === 'click' && (
+                  <CheckCircle2 size={20} className="text-purple-500" />
+                )}
+              </button>
+            </div>
+
+            {selectedPayment && (
+              <button
+                onClick={handleConfirmPayment}
+                className="w-full mt-3 bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2 px-4 rounded-xl transition-colors"
+              >
+                To'lov
+              </button>
+            )}
+
+            <p className="text-center text-xs text-muted-foreground mt-2">
+              +500 TG qo'shiladi
+            </p>
+          </div>
+        </div>
+      )}
     </MobileShell>
   );
 };
